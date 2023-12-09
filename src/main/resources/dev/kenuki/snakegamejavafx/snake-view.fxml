@@ -27,7 +27,7 @@
                <effect>
                   <Glow level="0.51" />
                </effect></Label>
-            <Label contentDisplay="TOP" prefHeight="13.0" prefWidth="67.0" text="by TheJustRusik" textAlignment="CENTER" textFill="#d7d7d7">
+            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="25.0" prefWidth="176.0" text="by TheJustRusik" textAlignment="CENTER" textFill="#d7d7d7">
                <font>
                   <Font size="16.0" />
                </font>
@@ -36,7 +36,7 @@
                </VBox.margin>
             </Label>
             <Label style="-fx-font-weight: 700; -fx-font-size: 16;" text="Difficulty:" textFill="WHITE" />
-            <Slider fx:id="difSlider" blockIncrement="50.0" max="300.0" min="50.0" onMouseReleased="#difSliderChanged" value="175.0">
+            <Slider id="minimalisticSlider" fx:id="difSlider" blockIncrement="50.0" max="300.0" min="50.0" stylesheets="@slider.css" value="175.0">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>

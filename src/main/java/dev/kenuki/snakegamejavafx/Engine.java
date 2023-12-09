@@ -57,8 +57,8 @@ public class Engine {
         Vec2I futureHead = makeMove(headPos, direction);
         Vec2I oldPos = new Vec2I(snakePieces.get(snakePieces.size() - 1));
         switch (field[futureHead.y][futureHead.x]){
-            case BODY, Wall -> alive = false;
-            case Apple -> {
+            case BODY, WALL -> alive = false;
+            case APPLE -> {
                 snakePieces.add(new Vec2I(oldPos));
                 setApple(1);
             }
@@ -78,7 +78,7 @@ public class Engine {
                 xRand = random.nextInt(field[0].length);
                 yRand = random.nextInt(field.length);
             }while (field[yRand][xRand] != Entity.AIR);
-            field[yRand][xRand] = Entity.Apple;
+            field[yRand][xRand] = Entity.APPLE;
             setApple(num - 1);
         }
     }

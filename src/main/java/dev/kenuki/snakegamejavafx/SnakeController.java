@@ -1,14 +1,16 @@
 package dev.kenuki.snakegamejavafx;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import javafx.scene.layout.Pane;
@@ -34,13 +36,13 @@ public class SnakeController {
         for(int y = 0; y < field.length; y++){
             for (int x = 0; x < field[y].length; x++){
                 switch (field[y][x]){
-                    case Apple -> {
-                        Rectangle tmp = new Rectangle(40,40,Color.RED);
+                    case APPLE -> {
+                        Rectangle tmp = new Rectangle(50,50,Color.RED);
                         tmp.setLayoutX(50 * x);
                         tmp.setLayoutY(50 * y);
                         battleField.getChildren().add(tmp);
                     }case BODY -> {
-                        Rectangle tmp = new Rectangle(40,40,Color.BLACK);
+                        Rectangle tmp = new Rectangle(50,50,Color.WHITE);
                         tmp.setLayoutX(50 * x);
                         tmp.setLayoutY(50 * y);
                         battleField.getChildren().add(tmp);
@@ -52,6 +54,13 @@ public class SnakeController {
 
     public void initialize() throws Exception {
         engine = new Engine(10,10);
+
+        difSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                difSliderChanged();
+            }
+        });
 
     }
     @FXML

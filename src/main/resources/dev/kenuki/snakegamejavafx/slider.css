@@ -1,0 +1,16 @@
+#minimalisticSlider {
+    -fx-background-color: transparent;
+}
+
+#minimalisticSlider .thumb {
+    -fx-background-color: #ff4431;
+    -fx-background-radius: 0;
+    -fx-pref-height: 15;
+    -fx-pref-width: 15;
+    -fx-rotate: 45;
+}
+
+#minimalisticSlider .track {
+    -fx-background-color: #16171b;
+    -fx-pref-height: 5;
+}
