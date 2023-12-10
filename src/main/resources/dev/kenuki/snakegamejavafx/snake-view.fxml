@@ -62,6 +62,14 @@
       <AnchorPane minHeight="580.0" minWidth="580.0" prefHeight="580.0" prefWidth="580.0" style="-fx-background-color: #202124; -fx-background-radius: 50;">
          <children>
             <Pane fx:id="battleField" layoutX="40.0" layoutY="40.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #16171b; -fx-background-radius: 50;" />
+            <Label fx:id="scoreText" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="-17.0" prefHeight="77.0" prefWidth="191.0" style="-fx-font-weight: 900;" text="Score: 0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+               <effect>
+                  <Glow level="0.51" />
+               </effect>
+            </Label>
          </children>
          <HBox.margin>
             <Insets bottom="10.0" left="5.0" right="10.0" top="10.0" />

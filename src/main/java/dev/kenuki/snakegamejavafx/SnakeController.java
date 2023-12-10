@@ -27,6 +27,8 @@ public class SnakeController {
     private Slider difSlider;
     @FXML
     private Label difText;
+    @FXML
+    private Label scoreText;
     private int gameFps = 170;
     private Engine engine;
     private Timeline timeline;
@@ -99,7 +101,7 @@ public class SnakeController {
         if(engine == null){
             return;
         }
-        if(!engine.alive){
+        if(!engine.isAlive()){
             return;
         }
         switch (event.getCode()) {
@@ -125,7 +127,8 @@ public class SnakeController {
         Duration duration = new Duration(gameFps);
         timeline = new Timeline(new KeyFrame(duration, event -> {
             engine.makeIteration();
-            if (!engine.alive){
+            scoreText.setText("Score: " + engine.getScore());
+            if (!engine.isAlive()){
                 stopGame();
                 try {
                     engine = new Engine(10,10);

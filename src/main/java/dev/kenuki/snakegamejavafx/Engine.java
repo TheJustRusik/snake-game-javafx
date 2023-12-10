@@ -12,12 +12,19 @@ public class Engine {
     private final Entity[][] field;
     private final ArrayList<Vec2I> snakePieces;
     public Direction direction = Direction.RIGHT;
-    public boolean alive = true;
+    private boolean alive = true;
+    private int score = 0;
     private Vec2I headPos = new Vec2I(START_LENGTH - 1, 0);
     public Engine(int width, int height) throws Exception {
         snakePieces = new ArrayList<>();
         field = new Entity[width][height];
         generateField(width, height);
+    }
+    public boolean isAlive(){
+        return alive;
+    }
+    public int getScore(){
+        return score;
     }
     private void generateField(int w, int h) throws Exception {
         if (START_LENGTH >= w)
@@ -59,6 +66,7 @@ public class Engine {
         switch (field[futureHead.y][futureHead.x]){
             case BODY, WALL -> alive = false;
             case APPLE -> {
+                ++score;
                 snakePieces.add(new Vec2I(oldPos));
                 setApple(1);
             }
