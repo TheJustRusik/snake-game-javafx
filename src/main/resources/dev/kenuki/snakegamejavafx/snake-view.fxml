@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.effect.Glow?>
@@ -43,9 +44,15 @@
             </Slider>
             <Label fx:id="difText" style="-fx-text-fill: yellow; -fx-font-size: 16; -fx-font-weight: 800;" text="Normal (175)" textFill="#eeff00">
                <VBox.margin>
-                  <Insets bottom="50.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
+            <Label alignment="CENTER" prefHeight="25.0" prefWidth="88.0" style="-fx-font-weight: 700; -fx-font-size: 16;" text="Size:" textFill="WHITE" />
+            <ChoiceBox fx:id="choiceSize" prefWidth="150.0" style="-fx-background-color: #16171b; -fx-background-radius: 50; -fx-border-color: #01b075; -fx-border-radius: 50;">
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </ChoiceBox>
             <Button fx:id="button" mnemonicParsing="false" onAction="#buttonPressed" style="-fx-background-radius: 50; -fx-background-color: #01b075; -fx-font-weight: 800; -fx-font-size: 36;" text="Start" textFill="WHITE">
                <font>
                   <Font size="24.0" />

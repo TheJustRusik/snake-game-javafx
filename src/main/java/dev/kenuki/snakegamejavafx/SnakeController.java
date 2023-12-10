@@ -2,15 +2,16 @@ package dev.kenuki.snakegamejavafx;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 import javafx.scene.layout.Pane;
@@ -29,6 +30,10 @@ public class SnakeController {
     private Label difText;
     @FXML
     private Label scoreText;
+    @FXML
+    private ChoiceBox<String> choiceSize;
+    private int fieldSize = 10;
+    private double entitySize = 50;
     private int gameFps = 170;
     private Engine engine;
     private Timeline timeline;
@@ -39,14 +44,12 @@ public class SnakeController {
             for (int x = 0; x < field[y].length; x++){
                 switch (field[y][x]){
                     case APPLE -> {
-                        Rectangle tmp = new Rectangle(50,50,Color.RED);
-                        tmp.setLayoutX(50 * x);
-                        tmp.setLayoutY(50 * y);
+                        Rectangle tmp = new Rectangle(entitySize * x,entitySize * y,entitySize,entitySize);
+                        tmp.setFill(Color.RED);
                         battleField.getChildren().add(tmp);
                     }case BODY -> {
-                        Rectangle tmp = new Rectangle(50,50,Color.WHITE);
-                        tmp.setLayoutX(50 * x);
-                        tmp.setLayoutY(50 * y);
+                        Rectangle tmp = new Rectangle(entitySize * x,entitySize * y,entitySize,entitySize);
+                        tmp.setFill(Color.WHITE);
                         battleField.getChildren().add(tmp);
                     }
                 }
@@ -55,8 +58,13 @@ public class SnakeController {
     }
 
     public void initialize() throws Exception {
-        engine = new Engine(10,10);
-
+        ObservableList<String> choices = FXCollections.observableArrayList(
+                "10x10",
+                "20x20",
+                "50x50"
+        );
+        choiceSize.setItems(choices);
+        choiceSize.setValue("10x10");
         difSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -80,19 +88,28 @@ public class SnakeController {
         }
     }
     @FXML
-    public void buttonPressed(){
+    public void buttonPressed() throws Exception {
         if (button.getText().equals("Start") || button.getText().equals("Restart")){
+            switch (choiceSize.getValue()){
+                case "10x10" -> {fieldSize = 10; entitySize = 50;}
+                case "20x20" -> {fieldSize = 20; entitySize = 25;}
+                case "50x50" -> {fieldSize = 50; entitySize = 10;}
+            }
+            engine = new Engine(fieldSize,fieldSize);
             startGame();
-            difSlider.setVisible(false);
+            difSlider.setDisable(true);
+            choiceSize.setDisable(true);
             button.setText("Stop");
         }else if(button.getText().equals("Resume")){
             startGame();
-            difSlider.setVisible(false);
+            difSlider.setDisable(true);
+            choiceSize.setDisable(true);
             button.setText("Stop");
         }else if(button.getText().equals("Stop")){
             stopGame();
             button.setText("Resume");
-            difSlider.setVisible(false);
+            difSlider.setDisable(true);
+            choiceSize.setDisable(true);
         }
 
     }
@@ -131,14 +148,15 @@ public class SnakeController {
             if (!engine.isAlive()){
                 stopGame();
                 try {
-                    engine = new Engine(10,10);
+                    engine = new Engine(fieldSize,fieldSize);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
                 drawFrame();
                 engine.direction = Direction.RIGHT;
                 button.setText("Restart");
-                difSlider.setVisible(true);
+                difSlider.setDisable(false);
+                choiceSize.setDisable(false);
             }
             drawFrame();
         }));
