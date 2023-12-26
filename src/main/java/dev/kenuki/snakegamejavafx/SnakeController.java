@@ -43,6 +43,9 @@ public class SnakeController {
         for(int y = 0; y < field.length; y++){
             for (int x = 0; x < field[y].length; x++){
                 switch (field[y][x]){
+                    case AIR -> {
+                        //Nothing...
+                    }
                     case APPLE -> {
                         Rectangle tmp = new Rectangle(entitySize * x,entitySize * y,entitySize,entitySize);
                         tmp.setFill(Color.RED);
@@ -50,6 +53,10 @@ public class SnakeController {
                     }case BODY -> {
                         Rectangle tmp = new Rectangle(entitySize * x,entitySize * y,entitySize,entitySize);
                         tmp.setFill(Color.WHITE);
+                        battleField.getChildren().add(tmp);
+                    }case WALL -> {
+                        Rectangle tmp = new Rectangle(entitySize * x,entitySize * y,entitySize,entitySize);
+                        tmp.setFill(Color.rgb(32, 33, 36));
                         battleField.getChildren().add(tmp);
                     }
                 }
@@ -123,20 +130,16 @@ public class SnakeController {
         }
         switch (event.getCode()) {
             case W -> {
-                if (engine.direction != Direction.DOWN)
-                    engine.direction = Direction.UP;
+                engine.direction = Direction.UP;
             }
             case S -> {
-                if (engine.direction != Direction.UP)
-                    engine.direction = Direction.DOWN;
+                engine.direction = Direction.DOWN;
             }
             case D -> {
-                if (engine.direction != Direction.LEFT)
-                    engine.direction = Direction.RIGHT;
+                engine.direction = Direction.RIGHT;
             }
             case A -> {
-                if (engine.direction != Direction.RIGHT)
-                    engine.direction = Direction.LEFT;
+                engine.direction = Direction.LEFT;
             }
         }
     }
@@ -152,11 +155,12 @@ public class SnakeController {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
-                drawFrame();
+                
                 engine.direction = Direction.RIGHT;
                 button.setText("Restart");
                 difSlider.setDisable(false);
                 choiceSize.setDisable(false);
+                return;
             }
             drawFrame();
         }));

@@ -62,6 +62,7 @@ public class Engine {
     }
     public void makeIteration(){
         Vec2I futureHead = makeMove(headPos, direction);
+        System.out.println(futureHead);
         Vec2I oldPos = new Vec2I(snakePieces.get(snakePieces.size() - 1));
         switch (field[futureHead.y][futureHead.x]){
             case BODY, WALL -> alive = false;
@@ -69,6 +70,9 @@ public class Engine {
                 ++score;
                 snakePieces.add(new Vec2I(oldPos));
                 setApple(1);
+            }
+            case AIR -> {
+                //Nothing...
             }
         }
         for (int i = snakePieces.size() - 1; i > 0; i--){

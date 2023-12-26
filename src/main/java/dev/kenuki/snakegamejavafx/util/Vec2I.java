@@ -16,4 +16,8 @@ public class Vec2I {
         x = vec.x;
         y = vec.y;
     }
+    @Override
+    public String toString(){
+        return String.format("Vec2I@%s{x=%d,y=%d}", Integer.toHexString(System.identityHashCode(this)), x, y);
+    }
 }
